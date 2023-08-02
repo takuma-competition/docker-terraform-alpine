@@ -1,0 +1,14 @@
+version: '3'
+services:
+  docker_terraform_alpine:
+    #image: alpine-terraform
+    build:
+      context: .
+      dockerfile: Dockerfile
+    #ここでは「unless-stopped」で最後にdocker daemon が起動していた際に ステータスが終了状態だった場合は再起動しない。それ以外はalwaysと同じ。
+    #参考：https://junchang1031.hatenablog.com/entry/2016/05/18/000605
+    restart: unless-stopped
+    container_name: docker-terraform-alpine
+    volumes:
+      - ./:/terraform
+    tty: true
